@@ -1,0 +1,27 @@
+
+- symbols:
+    - names: []
+    - feeds: ['futures-usdt-2024-01-12.txt']
+
+- strategies:
+  - strategy: {
+    name: RSIStrategy,
+    module: backtest.strategy.rsi,
+    intervals: ['30m'],
+    windows: [10],
+    params: [
+        [20, 80],
+        [25, 75]
+    ],
+    init_cash: 10000,
+    work_dir: repo\\bt_dir,
+    output: "backtest_rsi_{interval}_{window}_{min_rsi}x{max_rsi}.csv",
+    plots: [
+        "Total Return [%]",
+        "Max Drawdown [%]",
+        "Win Rate [%]",
+        "Worst Trade [%]",
+        "Profit Factor",
+        "Total Trades"
+    ]
+  }

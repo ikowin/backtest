@@ -1,0 +1,31 @@
+
+- symbols:
+    - names: []
+    - feeds: ['futures-usdt-2024-01-12.txt']
+
+- strategies:
+  - strategy: {
+    name: DualSMAStrategy,
+    module: backtest.strategy.sma,
+    intervals: ['30m', '4h', '1d'],
+    params: [
+        [3, 6],
+        [4, 8],
+        [5, 10],
+        [6, 12],
+        [7, 14],
+        [8, 16],
+        [10, 20]
+    ],
+    init_cash: 10000,
+    work_dir: repo\\sma_dir,
+    output: "backtest_sma_{label}.csv",
+    plots: [
+        "Total Return [%]",
+        "Max Drawdown [%]",
+        "Win Rate [%]",
+        "Worst Trade [%]",
+        "Profit Factor",
+        "Total Trades"
+    ]
+  }
