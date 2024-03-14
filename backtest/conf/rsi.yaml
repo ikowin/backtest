@@ -15,7 +15,7 @@
     ],
     init_cash: 10000,
     work_dir: repo\\bt_dir,
-    output: "backtest_rsi_{interval}_{window}_{min_rsi}x{max_rsi}.csv",
+    output: "backtest_rsi_{label}.csv",
     plots: [
         "Total Return [%]",
         "Max Drawdown [%]",
