@@ -32,14 +32,15 @@ class DualSMAStrategy(Runner):
         start = self.get("start", datetime(2023, 10, 1))
         df = BinanceData.load([symbol], interval=interval, start=start)
         price = df.get('Close')
-
+        
         fast_ma = vbt.MA.run(price, fast_n)
         slow_ma = vbt.MA.run(price, slow_n)
         entries = fast_ma.ma_crossed_above(slow_ma)
         exits = fast_ma.ma_crossed_below(slow_ma)
         
         init_cash = self.get("init_cash", 10000)
-        pf = vbt.Portfolio.from_signals(price, entries, exits, init_cash=init_cash)
-        return pf.stats()
-
+        return vbt.Portfolio.from_signals(price, entries, exits, init_cash=init_cash)
+    
+    def show(self):
+        pass
 

@@ -46,5 +46,5 @@ class RSIStrategy(Runner):
         # 3. price, entries, exits have the same length
         #    len(price) = len(entries) = len(exits)
         init_cash = self.get("init_cash", 10000)
-        pf = vbt.Portfolio.from_signals(price, entries, exits, init_cash=init_cash)
-        return pf.stats()
+        return vbt.Portfolio.from_signals(price, entries, exits, init_cash=init_cash)
+

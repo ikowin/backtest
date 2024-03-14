@@ -8,12 +8,13 @@ def run():
     warnings.filterwarnings("ignore")
     create_log("backtest")
     parser = argparse.ArgumentParser(description='The Backtest Engine')
-    parser.add_argument('-f', '--config-file', type=str, default="config.yaml")
+    parser.add_argument('-f', '--config-file', type=str, default="config.yaml", help="the yaml config file")
+    parser.add_argument('-s', '--show', dest='show_only', action='store_true', help="show the result")
 
     args = parser.parse_args()
     
     executor = BacktestEngine(args.config_file)
-    executor.exec()
+    executor.exec(show_only=args.show_only)
 
 
 

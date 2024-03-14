@@ -68,7 +68,7 @@ class BinanceData(Data):
             df['Taker base volume'] = df['Taker base volume'].astype(float)
             df['Taker quote volume'] = df['Taker quote volume'].astype(float)
             del df['Ignore']
-
+            
             data[s] = df
 
         # Create new instance from data

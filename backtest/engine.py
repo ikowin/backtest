@@ -86,8 +86,8 @@ class BacktestEngine:
         for token in tokens:
             try:
                 log.info('backtest %s on %s ...', token, params)
-                s = runner.run(token, **params)
-                df.loc[token] = s
+                pf = runner.run(token, **params)
+                df.loc[token] = pf.stats()
             except Exception as ex:
                 pass
         
@@ -97,7 +97,24 @@ class BacktestEngine:
         fp = runner.get_output_file(**params)
         df.to_csv(fp)
 
-    def exec(self, dry_run: bool = False):
+    def show(self, runner, tokens: list, **params):
+        for token in tokens:
+            pf = runner.run(token, **params)
+            # Note: we can choose subplots according to our requirement.
+            # fig is subclass of plotly.graph_objects.Figure
+            # fig = pf.plot(subplots=['orders', 'drawdowns', 'underwater'])
+            fig = pf.plot(show_titles=True)
+            fig.update_layout(title={
+                "text": f"{runner.__class__.__name__}: {token}@{runner.create_label(**params)}",
+                "font": dict(size=15),
+                'y':0.999,
+                'x':0.50,
+                'xanchor': 'center',
+                'yanchor': 'top'
+            })
+            fig.show()
+
+    def exec(self, dry_run: bool = False, show_only: bool = False):
         if dry_run:
             return
         for one in self.cfg.strategies:
@@ -114,7 +131,9 @@ class BacktestEngine:
             runner: Runner = cls(work_dir, s)
             # Iterate all possible backtesting parameters
             for params in runner.iter_parameters():
-                self._exec(runner, self.cfg.symbols, **params)
+                if show_only:
+                    self.show(runner, self.cfg.symbols, **params)
+                else:
+                    self._exec(runner, self.cfg.symbols, **params)
             # Create plots
             BoxPlot(runner).create_plots()
-
