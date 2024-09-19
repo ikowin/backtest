@@ -1,14 +1,13 @@
 ## About
 
-A simple backtest framwork based on vectorbt.
-
+A simple backtest framwork based on vectorbt for trading parameter optimization.
 
 ### Install
 
 download vectorbt from https://github.com/polakowo/vectorbt/tree/master
 
 
-### How to implement a strategy for backtesting
+### Usage
 
-
+python runbt.py -f sma.yaml
 
